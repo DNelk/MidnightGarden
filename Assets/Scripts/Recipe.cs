@@ -18,6 +18,6 @@ public class Recipe : System.Object
 
     public bool CompareIngredients(IngredientType[] compareTo)
     {
-        return RequiredIngredients.SequenceEqual(compareTo);
+        return RequiredIngredients.OrderBy(s => s).SequenceEqual(compareTo.OrderBy(s => s));
     }
 }
