@@ -35,7 +35,7 @@ public class Beaker : MonoBehaviour
         {
             if (r.CompareIngredients(_contents.ToArray()))
             {
-                _uiText.text = r.Name;
+                GameManager.instance.RecipeCreated(r.Name);
             }
         }
     }
