@@ -89,8 +89,11 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="Beaker.cs" t="Include" />
+          <e p="DataParser.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
           <e p="Ingredient.cs" t="Include" />
           <e p="Recipe.cs" t="Include" />
+          <e p="StoryParser.cs" t="Include" />
         </e>
       </e>
       <e p="Ink-Runtime.csproj" t="IncludeRecursive" />
