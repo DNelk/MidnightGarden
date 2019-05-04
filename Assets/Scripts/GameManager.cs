@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,16 +13,33 @@ public class GameManager : MonoBehaviour
     private Image dialogueBox;
     private Text dialogue;
     private string currentText;
+    
     [Header("Text Speed")]
     public float TextSpeed = 0.1f;
     
     //Parser
     private StoryParser storyParser;
-    public StoryState CurrentStoryState;
+    [Header("Story Information")]
+    [SerializeField]
+    private StoryState currentStoryState;
     
     //Game Vars
-    public string CurrentCharName;
-    public string CurrentDesiredRecipe;
+    [Header("Character Information")]
+    [SerializeField]
+    private string currentCharName;
+    [SerializeField]
+    private string currentDesiredRecipe;
+    [SerializeField]
+    private GameObject currentCharSprite;
+
+
+    [Header("Sprite Positions")]
+    public Transform SpriteStartingPos;
+    public Transform[] SpriteExitPos = new Transform[2];
+    
+    private RecipeContainer container;
+    
+    
     
     // Start is called before the first frame update
     private void Awake()
@@ -53,13 +71,16 @@ public class GameManager : MonoBehaviour
 
         TextAsset storyFile = Resources.Load<TextAsset>("Ink/test");
         storyParser = new StoryParser(storyFile);
-        CurrentStoryState = StoryState.Printing;
+        currentStoryState = StoryState.Printing;
+
+        container = GameObject.FindWithTag("RecipeContainer").GetComponent<RecipeContainer>();
+        currentCharSprite = GameObject.FindWithTag("CurrentChar");
     }
     
     // Update is called once per frame
     private void Update()
     {
-        switch (CurrentStoryState)
+        switch (currentStoryState)
         {
             case StoryState.Printing:
                 PrintingStoryUpdate();
@@ -76,27 +97,28 @@ public class GameManager : MonoBehaviour
     //Update for printing text
     private void PrintingStoryUpdate()
     {
-        //string lastCharName = CurrentCharName;
-        //CurrentCharName = storyParser.GetVar("Name");
-        //if(CurrentCharName != lastCharName)
-        //{
-            //load new char sprite
-            CurrentDesiredRecipe = storyParser.GetVar<string>("desiredRecipe");
-            
-        //}
         if (storyParser.CanContinue())
         {
+            string lastCharName = currentCharName;
+            currentCharName = storyParser.GetVar<string>("name");
+            if(currentCharName != lastCharName)
+            {
+                //load new char sprite
+                StartCoroutine(LoadCharacter());
+                currentDesiredRecipe = storyParser.GetVar<string>("desiredRecipe");
+            
+            }
             currentText = storyParser.NextLine();
             Debug.Log(currentText);
             
             StartCoroutine(PrintText());   
             if(storyParser.CanContinue())
-                CurrentStoryState = StoryState.Reading;
+                currentStoryState = StoryState.Reading;
         }
         //Oh now we have a choice
         if (storyParser.HasChoice())
         {
-            CurrentStoryState = StoryState.Crafting;
+            currentStoryState = StoryState.Crafting;
         }
     }
 
@@ -105,7 +127,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            CurrentStoryState = StoryState.Printing;
+            currentStoryState = StoryState.Printing;
         }
     }
     
@@ -113,15 +135,19 @@ public class GameManager : MonoBehaviour
     private void CraftingUpdate()
     {
        // Debug.Log(CurrentDesiredRecipe);
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            bool recipeCompleted = container.CheckRecipeCompleted();
+        }
     }
 
     public void RecipeCreated(string recipeName)
     {
-        if(CurrentStoryState != StoryState.Crafting)
+        if(currentStoryState != StoryState.Crafting)
             return;
         
         int choiceIndex;
-        if (recipeName == CurrentDesiredRecipe)
+        if (recipeName == currentDesiredRecipe)
         {
             choiceIndex = 0;
         }
@@ -131,7 +157,8 @@ public class GameManager : MonoBehaviour
         }
         
         storyParser.MakeChoice(choiceIndex);
-        CurrentStoryState = StoryState.Printing;
+        container.EmptyContainer();
+        currentStoryState = StoryState.Printing;
     }
     
     //Coroutine to print text letter-by-letter
@@ -143,6 +170,19 @@ public class GameManager : MonoBehaviour
             dialogue.text = subStr;
             yield return new WaitForSeconds(TextSpeed);
         }
+    }
+
+    private IEnumerator LoadCharacter()
+    {
+        float tweenTime = 1.0f;
+        //Make the old character go away;
+        Tween moveCharTween = currentCharSprite.transform.DOMove(SpriteExitPos[Random.Range(0, 2)].position, tweenTime);        
+        yield return moveCharTween.WaitForCompletion();
+        //Make the new character come up;
+        currentCharSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/" + currentCharName);
+        currentCharSprite.transform.position = SpriteExitPos[Random.Range(0, 2)].position;
+        moveCharTween = currentCharSprite.transform.DOMove(SpriteStartingPos.position, tweenTime);
+        yield return moveCharTween.WaitForCompletion();
     }
 }
 

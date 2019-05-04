@@ -6,6 +6,8 @@ TagManager:
   tags:
   - UIText
   - DialogueBox
+  - RecipeContainer
+  - CurrentChar
   layers:
   - Default
   - TransparentFX
