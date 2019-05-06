@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Beaker : MonoBehaviour
+public class RecipeContainer : MonoBehaviour
 {
     private List<IngredientType> _contents;
 
@@ -31,12 +31,14 @@ public class Beaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (Recipe r in Recipes)
-        {
-            if (r.CompareIngredients(_contents.ToArray()))
+        if(Input.GetKeyDown(KeyCode.Return)){
+            foreach (Recipe r in Recipes)
             {
-                GameManager.instance.RecipeCreated(r.Name);
-            }
+                if (r.CompareIngredients(_contents.ToArray()))
+                {
+                  GameManager.instance.RecipeCreated(r.Name);
+                }
+            }           
         }
     }
 
@@ -78,4 +80,22 @@ public class Beaker : MonoBehaviour
         _mySR.color = _myColor;
     }
 
+    public bool CheckRecipeCompleted()
+    {
+        foreach (Recipe r in Recipes)
+        {
+            if (r.CompareIngredients(_contents.ToArray()))
+            {
+                GameManager.instance.RecipeCreated(r.Name);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void EmptyContainer()
+    {
+        _contents.Clear();
+    }
 }
