@@ -16,12 +16,17 @@ public class GameManager : MonoBehaviour
     
     [Header("Text Speed")]
     public float TextSpeed = 0.1f;
+
+    //Fade
+    private bool fadeAnimating;
+    private Image fadeOutImg;
     
     //Parser
     private StoryParser storyParser;
     [Header("Story Information")]
     [SerializeField]
     private StoryState currentStoryState;
+    [SerializeField] private int chapter;
     
     //Game Vars
     [Header("Character Information")]
@@ -67,11 +72,13 @@ public class GameManager : MonoBehaviour
         dialogueBox = GameObject.FindWithTag("DialogueBox").GetComponent<Image>();
         dialogue = dialogueBox.transform.GetChild(0).GetComponent<Text>();
 
-       // dialogueBox.gameObject.SetActive(false);
-
-        TextAsset storyFile = Resources.Load<TextAsset>("Ink/test");
-        storyParser = new StoryParser(storyFile);
-        currentStoryState = StoryState.Printing;
+        // dialogueBox.gameObject.SetActive(false);
+        chapter = 1;
+        
+        fadeAnimating = false;
+        fadeOutImg = GameObject.Find("FadeOutImage").GetComponent<Image>();
+        fadeOutImg.color = Color.black;
+        currentStoryState = StoryState.DayStart;
 
         container = GameObject.FindWithTag("RecipeContainer").GetComponent<RecipeContainer>();
         currentCharSprite = GameObject.FindWithTag("CurrentChar");
@@ -82,6 +89,9 @@ public class GameManager : MonoBehaviour
     {
         switch (currentStoryState)
         {
+            case StoryState.DayStart:
+                DayStart();
+                break;
             case StoryState.Printing:
                 PrintingStoryUpdate();
                 break;
@@ -91,6 +101,9 @@ public class GameManager : MonoBehaviour
             case StoryState.Crafting:
                 CraftingUpdate();
                 break;
+            case StoryState.DayEnd:
+                DayEnd();
+                break;
         }
     }
     
@@ -99,29 +112,44 @@ public class GameManager : MonoBehaviour
     {
         if (storyParser.CanContinue())
         {
+            currentText = storyParser.NextLine();
+            Debug.Log(currentText);
+            
             string lastCharName = currentCharName;
             currentCharName = storyParser.GetVar<string>("name");
+            
+            if(storyParser.CanContinue())
+                currentStoryState = StoryState.Reading;
+            
             if(currentCharName != lastCharName)
             {
                 //load new char sprite
                 StartCoroutine(LoadCharacter());
-                currentDesiredRecipe = storyParser.GetVar<string>("desiredRecipe");
-            
+                currentDesiredRecipe = storyParser.GetVar<string>("desiredRecipe");   
             }
-            currentText = storyParser.NextLine();
-            Debug.Log(currentText);
+            else
+            {
+                PrintStory();
+            }
             
-            StartCoroutine(PrintText());   
-            if(storyParser.CanContinue())
-                currentStoryState = StoryState.Reading;
         }
-        //Oh now we have a choice
-        if (storyParser.HasChoice())
+        //Do we have a choice
+        else if (storyParser.HasChoice())
         {
             currentStoryState = StoryState.Crafting;
         }
+        //The Day is over
+        else
+        {
+            currentStoryState = StoryState.DayEnd;
+        }
     }
 
+    private void PrintStory()
+    {
+        StartCoroutine(PrintText());   
+    }
+    
     //Update while the player is reading
     private void ReadingStoryUpdate()
     {
@@ -183,12 +211,46 @@ public class GameManager : MonoBehaviour
         currentCharSprite.transform.position = SpriteExitPos[Random.Range(0, 2)].position;
         moveCharTween = currentCharSprite.transform.DOMove(SpriteStartingPos.position, tweenTime);
         yield return moveCharTween.WaitForCompletion();
+        PrintStory();
+    }
+
+    private IEnumerator StartFade(bool inTrueOutFalse)
+    {
+        Tween fadeTween;
+        float opacity;
+        opacity = inTrueOutFalse ? 0.0f : 1.0f;
+        fadeTween = fadeOutImg.DOFade(opacity, 1.0f);
+        currentStoryState = inTrueOutFalse ? StoryState.Printing : StoryState.DayStart;
+        yield return fadeTween.WaitForCompletion();
+    }
+
+    private void DayStart()
+    {
+        if (!fadeAnimating)
+        {
+            TextAsset storyFile = Resources.Load<TextAsset>("Ink/day" + chapter);
+            storyParser = new StoryParser(storyFile);
+            fadeAnimating = true;
+            StartCoroutine(StartFade(true));
+        }
+    }
+    
+    private void DayEnd()
+    {
+        if (!fadeAnimating)
+        {
+            fadeAnimating = true;
+            StartCoroutine(StartFade(false));
+            chapter++;
+        }
     }
 }
 
 public enum StoryState
 {
+    DayStart,
     Printing,
     Reading,
-    Crafting
+    Crafting,
+    DayEnd
 }
