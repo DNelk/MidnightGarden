@@ -101,8 +101,10 @@
             </e>
           </e>
         </e>
+        <e p="RecipeBook.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="DataParser.cs" t="Include" />
+          <e p="Drawer.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="Ingredient.cs" t="Include" />
           <e p="Recipe.cs" t="Include" />

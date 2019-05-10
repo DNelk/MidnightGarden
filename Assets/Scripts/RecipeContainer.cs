@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class RecipeContainer : MonoBehaviour
 {
-    private List<IngredientType> _contents;
+    private List<string> _contents;
 
     private Color _myColor;
     private List<Color> _colors;
@@ -19,7 +19,7 @@ public class RecipeContainer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _contents = new List<IngredientType>();
+        _contents = new List<string>();
         _mySR = transform.GetComponent<SpriteRenderer>();
         _myColor = Color.white;
         _mySR.color = _myColor;
@@ -31,23 +31,39 @@ public class RecipeContainer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return)){
+        if(Input.GetKeyDown(KeyCode.P) && GameManager.Instance.CurrentStoryState == StoryState.Crafting)
+        {
+            bool recipeFound = false;
             foreach (Recipe r in Recipes)
             {
                 if (r.CompareIngredients(_contents.ToArray()))
                 {
-                  GameManager.instance.RecipeCreated(r.Name);
+                  GameManager.Instance.RecipeCreated(r.Name);
+                    recipeFound = true;
                 }
-            }           
+            }
+
+            if (!recipeFound)
+            {
+                GameManager.Instance.RecipeCreated("nothing");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _contents.Clear();
+            _colors.Clear();
+            _mySR.color = Color.white;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
-    {
+    {      
         Ingredient currIngredient = other.gameObject.transform.GetComponent<Ingredient>();
         if (currIngredient != null)
         {
             AddIngredient(currIngredient);
+            GameManager.Instance.IngredientsOnBoard.Remove(other.gameObject.GetInstanceID());
             GameObject.Destroy(other.gameObject);
         }
     }
@@ -55,7 +71,7 @@ public class RecipeContainer : MonoBehaviour
     //Add ingredient to list, change color
     private void AddIngredient(Ingredient currIngredient)
     {
-        _contents.Add(currIngredient.GetIngredientType());
+        _contents.Add(currIngredient.IngredientType);
         AddColor(currIngredient.Color);    
     }
 
@@ -86,7 +102,7 @@ public class RecipeContainer : MonoBehaviour
         {
             if (r.CompareIngredients(_contents.ToArray()))
             {
-                GameManager.instance.RecipeCreated(r.Name);
+                GameManager.Instance.RecipeCreated(r.Name);
                 return true;
             }
         }

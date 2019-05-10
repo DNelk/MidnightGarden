@@ -7,29 +7,27 @@ using System.Linq;
 [System.Serializable]
 public class Recipe : System.Object
 {
-    public string[] _requiredIngredients;
     public string Name;
-
-    public Recipe(string name, String[] requiredIngredients)
+    public List<string> Requiredingredients;
+    
+    public Recipe(string name, List<string> requiredIngredients)
     {
         Name = name;
-        _requiredIngredients = requiredIngredients;
+        Requiredingredients = requiredIngredients;
     }
 
-    public bool CompareIngredients(IngredientType[] compareTo)
+    public bool CompareIngredients(string[] compareTo)
     {
-        return RequiredIngredients().OrderBy(s => s).SequenceEqual(compareTo.OrderBy(s => s));
+        return Requiredingredients.OrderBy(s => s).SequenceEqual(compareTo.OrderBy(s => s));
     }
+}
 
-    public List<IngredientType> RequiredIngredients()
+public class AllRecipes : System.Object
+{
+    public Recipe[] Recipes;
+
+    public AllRecipes(Recipe[] allRecipes)
     {
-        List<IngredientType> ingredientsInEnum = new List<IngredientType>();
-
-        foreach (string ingredient in _requiredIngredients)
-        {
-            ingredientsInEnum.Add((IngredientType)Enum.Parse(typeof(IngredientType), ingredient, true));
-        }
-
-        return ingredientsInEnum;
+        Recipes = allRecipes;
     }
 }

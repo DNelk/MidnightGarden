@@ -1,12 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance = null;
+    public static GameManager Instance = null;
     
     //UI
     private Canvas uiCanvas;
@@ -23,9 +26,10 @@ public class GameManager : MonoBehaviour
     
     //Parser
     private StoryParser storyParser;
+    private DataParser jsonParser;
     [Header("Story Information")]
     [SerializeField]
-    private StoryState currentStoryState;
+    public StoryState CurrentStoryState;
     [SerializeField] private int chapter;
     
     //Game Vars
@@ -36,27 +40,29 @@ public class GameManager : MonoBehaviour
     private string currentDesiredRecipe;
     [SerializeField]
     private GameObject currentCharSprite;
+    private RecipeBook recipeBook;
 
-
+    
     [Header("Sprite Positions")]
     public Transform SpriteStartingPos;
     public Transform[] SpriteExitPos = new Transform[2];
     
     private RecipeContainer container;
-    
+
+    public Dictionary<int, GameObject> IngredientsOnBoard;
     
     
     // Start is called before the first frame update
     private void Awake()
     {
-        //Check if instance already exists
-        if (instance == null)             
-            //if not, set instance to this
-            instance = this;
+        //Check if Instance already exists
+        if (Instance == null)             
+            //if not, set Instance to this
+            Instance = this;
             
-        //If instance already exists and it's not this:
-        else if (instance != this)   
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+        //If Instance already exists and it's not this:
+        else if (Instance != this)   
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one Instance of a GameManager.
             Destroy(gameObject);    
             
         //Sets this to not be destroyed when reloading scene
@@ -78,16 +84,24 @@ public class GameManager : MonoBehaviour
         fadeAnimating = false;
         fadeOutImg = GameObject.Find("FadeOutImage").GetComponent<Image>();
         fadeOutImg.color = Color.black;
-        currentStoryState = StoryState.DayStart;
+        CurrentStoryState = StoryState.DayStart;
 
         container = GameObject.FindWithTag("RecipeContainer").GetComponent<RecipeContainer>();
         currentCharSprite = GameObject.FindWithTag("CurrentChar");
+        recipeBook = GameObject.FindWithTag("RecipeBook").GetComponent<RecipeBook>();
+
+        IngredientsOnBoard = new Dictionary<int, GameObject>();
+        
+        jsonParser = new DataParser();
+        Recipe[] recipes = jsonParser.LoadRecipes("recipes.json");
+        container.Recipes = recipes.OfType<Recipe>().ToList();
+        recipeBook.Recipes = recipes;
     }
     
     // Update is called once per frame
     private void Update()
     {
-        switch (currentStoryState)
+        switch (CurrentStoryState)
         {
             case StoryState.DayStart:
                 DayStart();
@@ -100,6 +114,8 @@ public class GameManager : MonoBehaviour
                 break;
             case StoryState.Crafting:
                 CraftingUpdate();
+                if(Input.GetKeyDown(KeyCode.Space))
+                    ClearUnusedIngredients();
                 break;
             case StoryState.DayEnd:
                 DayEnd();
@@ -119,7 +135,7 @@ public class GameManager : MonoBehaviour
             currentCharName = storyParser.GetVar<string>("name");
             
             if(storyParser.CanContinue())
-                currentStoryState = StoryState.Reading;
+                CurrentStoryState = StoryState.Reading;
             
             if(currentCharName != lastCharName)
             {
@@ -136,12 +152,12 @@ public class GameManager : MonoBehaviour
         //Do we have a choice
         else if (storyParser.HasChoice())
         {
-            currentStoryState = StoryState.Crafting;
+            CurrentStoryState = StoryState.Crafting;
         }
         //The Day is over
         else
         {
-            currentStoryState = StoryState.DayEnd;
+            CurrentStoryState = StoryState.DayEnd;
         }
     }
 
@@ -155,7 +171,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            currentStoryState = StoryState.Printing;
+            CurrentStoryState = StoryState.Printing;
         }
     }
     
@@ -171,7 +187,7 @@ public class GameManager : MonoBehaviour
 
     public void RecipeCreated(string recipeName)
     {
-        if(currentStoryState != StoryState.Crafting)
+        if(CurrentStoryState != StoryState.Crafting)
             return;
         
         int choiceIndex;
@@ -186,7 +202,7 @@ public class GameManager : MonoBehaviour
         
         storyParser.MakeChoice(choiceIndex);
         container.EmptyContainer();
-        currentStoryState = StoryState.Printing;
+        CurrentStoryState = StoryState.Printing;
     }
     
     //Coroutine to print text letter-by-letter
@@ -220,8 +236,9 @@ public class GameManager : MonoBehaviour
         float opacity;
         opacity = inTrueOutFalse ? 0.0f : 1.0f;
         fadeTween = fadeOutImg.DOFade(opacity, 1.0f);
-        currentStoryState = inTrueOutFalse ? StoryState.Printing : StoryState.DayStart;
+        CurrentStoryState = inTrueOutFalse ? StoryState.Printing : StoryState.DayStart;
         yield return fadeTween.WaitForCompletion();
+        fadeAnimating = false;
     }
 
     private void DayStart()
@@ -244,6 +261,16 @@ public class GameManager : MonoBehaviour
             chapter++;
         }
     }
+
+    private void ClearUnusedIngredients()
+    {
+        foreach (var ingredient in IngredientsOnBoard)
+        {
+            Destroy(ingredient.Value);
+        }
+        
+        IngredientsOnBoard.Clear();
+    }
 }
 
 public enum StoryState
@@ -252,5 +279,6 @@ public enum StoryState
     Printing,
     Reading,
     Crafting,
-    DayEnd
+    DayEnd,
+    ReadingRecipe
 }

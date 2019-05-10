@@ -1,0 +1,49 @@
+{ "Recipes" : [{
+		"Name": "Gill Serum",
+		"Requiredingredients": ["Plant Oil", "Iridescent Scale Powder"]
+	},
+	{
+		"Name": "Warm Healing Tonic",
+		"Requiredingredients": ["Wraith Pepper", "Rock Salt", "Healing Water", "Savory Herb Mix"]
+	},
+	{
+		"Name": "Shake Light",
+		"Requiredingredients": ["Plant Oil", "Will o Wisp"]
+	},
+	{
+		"Name": "Sweet Healing Tonic",
+		"Requiredingredients": ["Healing Water", "Lemon Juice", "Flower Honey", "Sweet Herb Mix"]
+	},
+	{
+		"Name": "Power Lemonade",
+		"Requiredingredients": ["Sparkling Water", "Sweet Herb Mix", "Strawngberries", "Lemon Juice", "Flower Honey"]
+	},
+	{
+		"Name": "Explosive Tincture",
+		"Requiredingredients": ["Plant Oil", "Wraith Pepper", "Will o Wisp"]
+	},
+	{
+		"Name": "Wound Salve",
+		"Requiredingredients": ["Plant Oil", "Healing Water", "Flower Honey"]
+	},
+	{
+		"Name": "Spiced Siren Cider",
+		"Requiredingredients": ["Healing Water", "Flower Honey", "Iridescent Scale Powder", "Sweet Herb Mix", "Savory Herb Mix"]
+	},
+	{
+		"Name": "Dragons Broth ",
+		"Requiredingredients": ["Healing Water", "Wraith Pepper", "Sparkroot", "Rock Salt"]
+	},
+	{
+		"Name": "Robot Ramen",
+		"Requiredingredients": ["Oil Solution", "Savory Herb Mix", "Tangled Wires"]
+	},
+	{
+		"Name": "Revitalizing Kit",
+		"Requiredingredients": ["Power Core", "Cooling Fan", "Little Gear"]
+	},
+	{
+		"Name": "Rust-Away Salve",
+		"Requiredingredients": ["Lemon Juice", "Slick Oil Solution", "Healing Water"]
+	}
+]}

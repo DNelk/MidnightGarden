@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class DataParser
 {
-    public string path;
-    
-    public void LoadData(string newPath)
+    public Recipe[] LoadRecipes(string newPath)
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, newPath);
-
+        AllRecipes recipes = null;
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
 
-            Recipe recipe = JsonUtility.FromJson<Recipe>(dataAsJson);
-            
+            recipes = JsonUtility.FromJson<AllRecipes>(dataAsJson);
+
             Debug.Log("recipe loaded");
         }
+        return recipes.Recipes;
     }
 }
