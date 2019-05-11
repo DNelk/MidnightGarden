@@ -4,11 +4,11 @@ VAR whileCraftingText = ""
 ->Encounter_One
 
 ==Encounter_One==
-~desiredRecipe = "The Juice"
+~desiredRecipe = "Gill Serum"
 ~name = "TestName1"
 this is a test game...
 <>yes it is
-i want the juice
+i want gill serum
 ->ChoiceTime
 = ChoiceTime
 * [Give Correct Potion]
@@ -19,11 +19,11 @@ i want the juice
     -> Encounter_One.ChoiceTime
 
 ==Encounter_Two==
-~desiredRecipe = "Just Kale Please"
+~desiredRecipe = "Shake Light"
 ~name = "TestName2"
 ~whileCraftingText = "Nice Lookin Potions"
 here's the second encounter
-now i want just kale please
+now i want a shake light
 ->ChoiceTime
 = ChoiceTime
 * [Give Correct Potion]

@@ -419,7 +419,7 @@ Transform:
   m_LocalScale: {x: 0.33586, y: 0.33586, z: 0.33586}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &332766455
 GameObject:
@@ -726,8 +726,9 @@ RectTransform:
   - {fileID: 695245357}
   - {fileID: 245492805}
   - {fileID: 1388099002}
+  - {fileID: 722594826}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -808,6 +809,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695245356}
+  m_CullTransparentMesh: 0
+--- !u!1 &722594825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722594826}
+  - component: {fileID: 722594828}
+  - component: {fileID: 722594827}
+  m_Layer: 5
+  m_Name: TooltipBox
+  m_TagString: Tooltip
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &722594826
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722594825}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.40357906, y: 0.40357906, z: 0.40357906}
+  m_Children:
+  - {fileID: 960521043}
+  m_Father: {fileID: 645262804}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 37, y: 293}
+  m_SizeDelta: {x: 347.3, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &722594827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722594825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3372549}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &722594828
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722594825}
   m_CullTransparentMesh: 0
 --- !u!1 &730439655
 GameObject:
@@ -973,6 +1049,85 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956450829}
+  m_CullTransparentMesh: 0
+--- !u!1 &960521042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 960521043}
+  - component: {fileID: 960521045}
+  - component: {fileID: 960521044}
+  m_Layer: 5
+  m_Name: TooltipText
+  m_TagString: UIText
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &960521043
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960521042}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0644864, y: 1.0182043, z: 1.2341871}
+  m_Children: []
+  m_Father: {fileID: 722594826}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.2342072, y: -7.4051285}
+  m_SizeDelta: {x: 300, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &960521044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960521042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 33
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 137
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: tooltip
+--- !u!222 &960521045
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960521042}
   m_CullTransparentMesh: 0
 --- !u!1 &1001102131
 GameObject:
@@ -1242,6 +1397,262 @@ Transform:
   m_Father: {fileID: 1568419531}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1102425799
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4404426388494909867, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_Name
+      value: MasterIngredient
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909904, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[1].Key
+      value: healing water
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[1].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7510aac64a409482fa89a98b9ac8b4d4,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[1].Flavor
+      value: Gently-glowing water collected from the old amphora in your basement.
+        Along with healing power, it's an excellent potion base.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[2].Key
+      value: iridescent scale powder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[2].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: af03f769b9e414541a7018ae77f464ca,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[2].Flavor
+      value: Ground mermaid scales that grant underwater breathing when rubbed on
+        the skin or consumed.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[3].Key
+      value: lemon juice
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[3].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e820a466343094b5986f1f378e56ee56,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[3].Flavor
+      value: The juice of a few lemons, stored for use as needed.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[4].Key
+      value: plant oil
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[4].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9176822d4823e4b8bb402f9579f1782a,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[4].Flavor
+      value: A mild-tasting, multipurpose fusion of vegetable oils.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[5].Key
+      value: rock salt
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[5].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7830472cec31749bc91c4253eaafe514,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[5].Flavor
+      value: Purple cave salt that's been ground into small crystals.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[6].Key
+      value: savory herb mix
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[6].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53a29987c94564cff82618b70533b237,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[6].Flavor
+      value: Assortment of herbs and spices used in savory elixirs.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[7].Key
+      value: sparkroot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[7].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e0c3b3cd9f35e40b3b212e97ea11e4ae,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[7].Flavor
+      value: A starchy, flavorless tuber with an energy-boosting effect. Potions made
+        with it give off sparks.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[8].Key
+      value: strawngberries
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[8].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 42017622665df44ca9afa26c69ac4605,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[8].Flavor
+      value: Like strawberries, with a similar taste and texture but the added bonus
+        of making you STRONG.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[9].Key
+      value: sweet herb mix
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[9].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4799ac6f578fd492d8e837073e8938e0,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[9].Flavor
+      value: A fragrant mixture of herbs such as lavender, mint, and anise.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[10].Key
+      value: will o wisp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[10].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0eca1c8535ebc4f22812b8b80a04195f,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[10].Flavor
+      value: A glowing orb of light collected from the nearby bog. It creates a strong
+        glow effect in concoctions.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[11].Key
+      value: wraith pepper
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[11].Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6907e7aa25f9b4cc886ae5439e443cb9,
+        type: 3}
+    - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
+        type: 3}
+      propertyPath: SpritesWithKeys.Array.data[11].Flavor
+      value: A constantly-flaming spicy pepper. Very warming. You learned the hard
+        way that you have to hold it by the stem!
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0eefb008a533e4f8e820bb787aed857a, type: 3}
 --- !u!1001 &1171687208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1292,7 +1703,7 @@ PrefabInstance:
     - target: {fileID: 6191180415034915621, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6191180415034915621, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
@@ -1312,7 +1723,7 @@ PrefabInstance:
     - target: {fileID: 6191180415034915619, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
       propertyPath: _ingredientToSpawn
-      value: strawngberries
+      value: will o wisp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777f8f33cb38f48af8475080f776ba50, type: 3}
@@ -1474,7 +1885,7 @@ Transform:
   m_LocalScale: {x: 1.385776, y: 1.385776, z: 1.385776}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1388099001
 GameObject:
@@ -1560,7 +1971,7 @@ PrefabInstance:
     - target: {fileID: 6191180415034915621, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6191180415034915621, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
@@ -1580,7 +1991,7 @@ PrefabInstance:
     - target: {fileID: 6191180415034915619, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
       propertyPath: _ingredientToSpawn
-      value: wraith pepper
+      value: iridescent scale powder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777f8f33cb38f48af8475080f776ba50, type: 3}
@@ -1615,7 +2026,7 @@ Transform:
   - {fileID: 1086705766}
   - {fileID: 2082986903}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1668480882
 GameObject:
@@ -1696,7 +2107,7 @@ Transform:
   m_LocalScale: {x: 0.60047555, y: 0.30403826, z: 0.30403826}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1668480885
 MonoBehaviour:
@@ -2030,7 +2441,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1932244049
 GameObject:
@@ -2096,7 +2507,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2082986902
 GameObject:
@@ -2178,7 +2589,7 @@ PrefabInstance:
     - target: {fileID: 269036713411737143, guid: 09ddb4a6563984ef6a290f6f71a3ddfb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 269036713411737143, guid: 09ddb4a6563984ef6a290f6f71a3ddfb,
         type: 3}
@@ -2283,7 +2694,7 @@ PrefabInstance:
     - target: {fileID: 4517352157321490493, guid: c5fbbaa9d315f47ff916d329dabd9736,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4517352157321490493, guid: c5fbbaa9d315f47ff916d329dabd9736,
         type: 3}
@@ -2372,7 +2783,7 @@ PrefabInstance:
     - target: {fileID: 6191180415034915619, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
       propertyPath: _ingredientToSpawn
-      value: savory herb mix
+      value: plant oil
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 777f8f33cb38f48af8475080f776ba50, type: 3}

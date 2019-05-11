@@ -17,24 +17,26 @@ public class Ingredient : MonoBehaviour
 
     private Vector3 _offset;
 
-    private bool _mouseDragging;
+    public bool Dragging = false;
     private bool _redraw = false;
 
-    private Dictionary<string, Sprite> _sprites;
-
+    private static Dictionary<string, Sprite> _sprites = new Dictionary<string, Sprite>();
+    public static Dictionary<string, string> FlavorTexts = new Dictionary<string, string>();
     public List<SpriteWithKey> SpritesWithKeys;
     
     // Start is called before the first frame update
     void Start()
     {
         _mySR = transform.GetComponent<SpriteRenderer>();
-        _sprites = new Dictionary<string, Sprite>();
         foreach (SpriteWithKey s in SpritesWithKeys)
         {
-            _sprites.Add(s.Key,s.Sprite);
+            if (!_sprites.ContainsKey(s.Key))
+            {
+                _sprites.Add(s.Key, s.Sprite);
+                FlavorTexts.Add(s.Key, s.Flavor);
+            }
         }
         DrawIngredient();
-        _mouseDragging = true;
         CalcOffset();
     }
 
@@ -47,7 +49,7 @@ public class Ingredient : MonoBehaviour
             DrawIngredient();
         }
             
-        if (_mouseDragging)
+        if (Dragging)
         {
             CalcPosOnMouseMove();
         }
@@ -55,9 +57,9 @@ public class Ingredient : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (_mouseDragging)
+        if (Dragging)
         {
-            _mouseDragging = false;
+            Dragging = false;
         }
         else
         {
@@ -109,7 +111,8 @@ public class Ingredient : MonoBehaviour
     
     private void DrawIngredient()
     {
-        _mySR.sprite = _sprites[_myIngredient];
+        if(_myIngredient != "0")
+            _mySR.sprite = _sprites[_myIngredient];
     }
 
     public string IngredientType
@@ -135,4 +138,5 @@ public struct SpriteWithKey
 {
     public string Key;
     public Sprite Sprite;
+    public string Flavor;
 }

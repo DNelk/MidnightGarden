@@ -9,6 +9,7 @@ TagManager:
   - RecipeContainer
   - CurrentChar
   - RecipeBook
+  - Tooltip
   layers:
   - Default
   - TransparentFX

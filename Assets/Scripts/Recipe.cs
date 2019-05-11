@@ -18,7 +18,7 @@ public class Recipe : System.Object
 
     public bool CompareIngredients(string[] compareTo)
     {
-        return Requiredingredients.OrderBy(s => s).SequenceEqual(compareTo.OrderBy(s => s));
+        return Requiredingredients.OrderBy(s => s).SequenceEqual(compareTo.OrderBy(s => s), StringComparer.OrdinalIgnoreCase);
     }
 }
 

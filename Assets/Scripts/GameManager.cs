@@ -134,8 +134,7 @@ public class GameManager : MonoBehaviour
             string lastCharName = currentCharName;
             currentCharName = storyParser.GetVar<string>("name");
             
-            if(storyParser.CanContinue())
-                CurrentStoryState = StoryState.Reading;
+            CurrentStoryState = StoryState.Reading;
             
             if(currentCharName != lastCharName)
             {
@@ -152,6 +151,11 @@ public class GameManager : MonoBehaviour
         //Do we have a choice
         else if (storyParser.HasChoice())
         {
+            if (storyParser.GetVar<string>("whileCraftingText") != "")
+            {
+                currentText = storyParser.GetVar<string>("whileCraftingText");
+                PrintStory();
+            }
             CurrentStoryState = StoryState.Crafting;
         }
         //The Day is over
@@ -236,9 +240,9 @@ public class GameManager : MonoBehaviour
         float opacity;
         opacity = inTrueOutFalse ? 0.0f : 1.0f;
         fadeTween = fadeOutImg.DOFade(opacity, 1.0f);
-        CurrentStoryState = inTrueOutFalse ? StoryState.Printing : StoryState.DayStart;
         yield return fadeTween.WaitForCompletion();
         fadeAnimating = false;
+        CurrentStoryState = inTrueOutFalse ? StoryState.Printing : StoryState.DayStart;
     }
 
     private void DayStart()

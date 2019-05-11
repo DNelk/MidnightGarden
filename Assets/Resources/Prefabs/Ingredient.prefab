@@ -142,30 +142,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myIngredient: 0
+  Flavor: 
   SpritesWithKeys:
   - Key: flower honey
     Sprite: {fileID: 21300000, guid: b0e43799bc80a4f6f906ad87a9f692d3, type: 3}
+    Flavor: A warm and gentle lavender honey from your backyard apiary.
   - Key: gill serum
     Sprite: {fileID: 21300000, guid: e63b342df3019480987ea1fe18b04065, type: 3}
+    Flavor: A solution found in the gills of ancient fish that dwell in a quiet cove
+      nearby.
   - Key: healing water
     Sprite: {fileID: 21300000, guid: 7510aac64a409482fa89a98b9ac8b4d4, type: 3}
+    Flavor: Gently-glowing water collected from the old amphora in your basement.
+      Along with healing power, it's an excellent potion base.
   - Key: iridescent scale powder
     Sprite: {fileID: 21300000, guid: af03f769b9e414541a7018ae77f464ca, type: 3}
+    Flavor: Ground mermaid scales that grant underwater breathing when rubbed on the
+      skin or consumed.
   - Key: lemon juice
     Sprite: {fileID: 21300000, guid: e820a466343094b5986f1f378e56ee56, type: 3}
+    Flavor: The juice of a few lemons, stored for use as needed.
   - Key: plant oil
     Sprite: {fileID: 21300000, guid: 9176822d4823e4b8bb402f9579f1782a, type: 3}
+    Flavor: A mild-tasting, multipurpose fusion of vegetable oils.
   - Key: rock salt
     Sprite: {fileID: 21300000, guid: 7830472cec31749bc91c4253eaafe514, type: 3}
+    Flavor: Purple cave salt that's been ground into small crystals.
   - Key: savory herb mix
     Sprite: {fileID: 21300000, guid: 53a29987c94564cff82618b70533b237, type: 3}
+    Flavor: Assortment of herbs and spices used in savory elixirs.
   - Key: sparkroot
     Sprite: {fileID: 21300000, guid: e0c3b3cd9f35e40b3b212e97ea11e4ae, type: 3}
+    Flavor: A starchy, flavorless tuber with an energy-boosting effect. Potions made
+      with it give off sparks.
   - Key: strawngberries
     Sprite: {fileID: 21300000, guid: 42017622665df44ca9afa26c69ac4605, type: 3}
+    Flavor: Like strawberries, with a similar taste and texture but the added bonus
+      of making you STRONG.
   - Key: sweet herb mix
     Sprite: {fileID: 21300000, guid: 4799ac6f578fd492d8e837073e8938e0, type: 3}
+    Flavor: A fragrant mixture of herbs such as lavender, mint, and anise.
   - Key: will o wisp
     Sprite: {fileID: 21300000, guid: 0eca1c8535ebc4f22812b8b80a04195f, type: 3}
+    Flavor: A glowing orb of light collected from the nearby bog. It creates a strong
+      glow effect in concoctions.
   - Key: wraith pepper
     Sprite: {fileID: 21300000, guid: 6907e7aa25f9b4cc886ae5439e443cb9, type: 3}
+    Flavor: A constantly-flaming spicy pepper. Very warming. You learned the hard
+      way that you have to hold it by the stem!
