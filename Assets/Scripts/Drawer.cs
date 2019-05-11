@@ -18,6 +18,8 @@ public class Drawer : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if(GameManager.Instance.CurrentStoryState != StoryState.Crafting)
+            return;
         GameObject newIngredient = Instantiate(Resources.Load<GameObject>("Prefabs/Ingredient"));
         newIngredient.GetComponent<Ingredient>().IngredientType = _ingredientToSpawn;
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(transform.position);
@@ -29,8 +31,8 @@ public class Drawer : MonoBehaviour
 
     private void OnMouseOver()
     {
-        _tooltipBox.SetActive(true);
-        
+        if(GameManager.Instance.CurrentStoryState != StoryState.Crafting)
+            return;
         //first you need the RectTransform component of your canvas
         RectTransform canvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
  
@@ -43,7 +45,7 @@ public class Drawer : MonoBehaviour
             ((viewportPosition.y * canvasRect.sizeDelta.y)-(canvasRect.sizeDelta.y*0.5f)));
  
         //now you can set the position of the ui element
-        _tooltipBox.GetComponent<RectTransform>().anchoredPosition = worldObject_ScreenPosition + (Vector2.left * 100);
+        _tooltipBox.GetComponent<RectTransform>().anchoredPosition = worldObject_ScreenPosition + (Vector2.left * 120);
         _tooltipText.text = Ingredient.FlavorTexts[_ingredientToSpawn];
 
     }
