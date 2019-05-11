@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4404426388494909867}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.74, y: -1.72, z: 0}
-  m_LocalScale: {x: 0.37227, y: 0.37227, z: 0.37227}
+  m_LocalScale: {x: 0.5952999, y: 0.5952999, z: 0.5952999}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &4404426388494909909
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.10363972, y: 0.023030818}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -127,7 +127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 3.5308535, y: 3.1393242}
   m_EdgeRadius: 0
 --- !u!114 &4404426388494909908
 MonoBehaviour:
@@ -142,3 +142,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myIngredient: 0
+  SpritesWithKeys:
+  - Key: flower honey
+    Sprite: {fileID: 21300000, guid: b0e43799bc80a4f6f906ad87a9f692d3, type: 3}
+  - Key: gill serum
+    Sprite: {fileID: 21300000, guid: e63b342df3019480987ea1fe18b04065, type: 3}
+  - Key: healing water
+    Sprite: {fileID: 21300000, guid: 7510aac64a409482fa89a98b9ac8b4d4, type: 3}
+  - Key: iridescent scale powder
+    Sprite: {fileID: 21300000, guid: af03f769b9e414541a7018ae77f464ca, type: 3}
+  - Key: lemon juice
+    Sprite: {fileID: 21300000, guid: e820a466343094b5986f1f378e56ee56, type: 3}
+  - Key: plant oil
+    Sprite: {fileID: 21300000, guid: 9176822d4823e4b8bb402f9579f1782a, type: 3}
+  - Key: rock salt
+    Sprite: {fileID: 21300000, guid: 7830472cec31749bc91c4253eaafe514, type: 3}
+  - Key: savory herb mix
+    Sprite: {fileID: 21300000, guid: 53a29987c94564cff82618b70533b237, type: 3}
+  - Key: sparkroot
+    Sprite: {fileID: 21300000, guid: e0c3b3cd9f35e40b3b212e97ea11e4ae, type: 3}
+  - Key: strawngberries
+    Sprite: {fileID: 21300000, guid: 42017622665df44ca9afa26c69ac4605, type: 3}
+  - Key: sweet herb mix
+    Sprite: {fileID: 21300000, guid: 4799ac6f578fd492d8e837073e8938e0, type: 3}
+  - Key: will o wisp
+    Sprite: {fileID: 21300000, guid: 0eca1c8535ebc4f22812b8b80a04195f, type: 3}
+  - Key: wraith pepper
+    Sprite: {fileID: 21300000, guid: 6907e7aa25f9b4cc886ae5439e443cb9, type: 3}

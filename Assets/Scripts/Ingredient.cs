@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,11 +19,20 @@ public class Ingredient : MonoBehaviour
 
     private bool _mouseDragging;
     private bool _redraw = false;
+
+    private Dictionary<string, Sprite> _sprites;
+
+    public List<SpriteWithKey> SpritesWithKeys;
     
     // Start is called before the first frame update
     void Start()
     {
         _mySR = transform.GetComponent<SpriteRenderer>();
+        _sprites = new Dictionary<string, Sprite>();
+        foreach (SpriteWithKey s in SpritesWithKeys)
+        {
+            _sprites.Add(s.Key,s.Sprite);
+        }
         DrawIngredient();
         _mouseDragging = true;
         CalcOffset();
@@ -77,17 +87,29 @@ public class Ingredient : MonoBehaviour
 
         Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + _offset;
         transform.position = curPosition;
+        
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 3f, transform.forward);
+        if (hit)
+        {
+            if (hit.transform.CompareTag("RecipeContainer"))
+            {
+                Vector3 targetDir = hit.transform.position - transform.position;
+
+                // The step size is equal to speed times frame time.
+                float step = 0.5f * Time.deltaTime;
+
+                Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+                Debug.DrawRay(transform.position, newDir, Color.red);
+
+                // Move our position a step closer to the target.
+                transform.rotation = Quaternion.LookRotation(newDir);
+            }
+        }
     }
     
     private void DrawIngredient()
     {
-        //Check What Ingredient we are and assign our sprite
-        switch (_myIngredient)
-        {
-           
-        }
-
-        _mySR.color = _color;
+        _mySR.sprite = _sprites[_myIngredient];
     }
 
     public string IngredientType
@@ -101,4 +123,16 @@ public class Ingredient : MonoBehaviour
         get { return _color; }
         set { _color = value; }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 3f);
+    }
+}
+
+[Serializable]
+public struct SpriteWithKey
+{
+    public string Key;
+    public Sprite Sprite;
 }

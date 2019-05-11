@@ -16,6 +16,8 @@ public class RecipeContainer : MonoBehaviour
     public List<Recipe> Recipes;
 
     private Text _uiText;
+
+    public Animator PestleAnimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,24 +33,6 @@ public class RecipeContainer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P) && GameManager.Instance.CurrentStoryState == StoryState.Crafting)
-        {
-            bool recipeFound = false;
-            foreach (Recipe r in Recipes)
-            {
-                if (r.CompareIngredients(_contents.ToArray()))
-                {
-                  GameManager.Instance.RecipeCreated(r.Name);
-                    recipeFound = true;
-                }
-            }
-
-            if (!recipeFound)
-            {
-                GameManager.Instance.RecipeCreated("nothing");
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             _contents.Clear();
@@ -72,7 +56,7 @@ public class RecipeContainer : MonoBehaviour
     private void AddIngredient(Ingredient currIngredient)
     {
         _contents.Add(currIngredient.IngredientType);
-        AddColor(currIngredient.Color);    
+        //AddColor(currIngredient.Color);    
     }
 
     private void AddColor(Color newColor)
@@ -113,5 +97,28 @@ public class RecipeContainer : MonoBehaviour
     public void EmptyContainer()
     {
         _contents.Clear();
+    }
+
+    private void OnMouseDown()
+    {
+        if(GameManager.Instance.CurrentStoryState == StoryState.Crafting)
+        {
+            bool recipeFound = false;
+            foreach (Recipe r in Recipes)
+            {
+                if (r.CompareIngredients(_contents.ToArray()))
+                {
+                    GameManager.Instance.RecipeCreated(r.Name);
+                    recipeFound = true;
+                }
+            }
+
+            if (!recipeFound)
+            {
+                GameManager.Instance.RecipeCreated("nothing");
+            }
+            
+            PestleAnimator.SetTrigger("StartGrind");
+        }
     }
 }
