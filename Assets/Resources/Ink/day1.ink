@@ -6,6 +6,10 @@ VAR whileCraftingText = ""
 ==Encounter_One==
 ~desiredRecipe = "Gill Serum"
 ~name = "TestName1"
+hi i'm an npc
+~name = "player"
+hey i'm the player
+~name = "TestName1"
 this is a test game...
 <>yes it is
 i want gill serum

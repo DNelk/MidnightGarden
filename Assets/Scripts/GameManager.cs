@@ -50,8 +50,10 @@ public class GameManager : MonoBehaviour
     private RecipeContainer container;
 
     public Dictionary<int, GameObject> IngredientsOnBoard;
-    
-    
+
+    public Character[] CharacterData;
+
+    private Dictionary<string, Character> characters;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -96,6 +98,12 @@ public class GameManager : MonoBehaviour
         Recipe[] recipes = jsonParser.LoadRecipes("recipes.json");
         container.Recipes = recipes.OfType<Recipe>().ToList();
         recipeBook.Recipes = recipes;
+        
+        characters = new Dictionary<string, Character>();
+        foreach (Character character in CharacterData)
+        {
+            characters.Add(character.Name, character);
+        }
     }
     
     // Update is called once per frame
@@ -135,8 +143,12 @@ public class GameManager : MonoBehaviour
             currentCharName = storyParser.GetVar<string>("name");
             
             CurrentStoryState = StoryState.Reading;
-            
-            if(currentCharName != lastCharName)
+
+            if(currentCharName == "player" || currentCharName == "")
+            {
+                PrintStory(Color.yellow);
+            }
+            else if(currentCharName != lastCharName && lastCharName != "player")
             {
                 //load new char sprite
                 StartCoroutine(LoadCharacter());
@@ -144,7 +156,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                PrintStory();
+                PrintStory(characters[currentCharName].TextColor);
             }
             
         }
@@ -154,7 +166,7 @@ public class GameManager : MonoBehaviour
             if (storyParser.GetVar<string>("whileCraftingText") != "")
             {
                 currentText = storyParser.GetVar<string>("whileCraftingText");
-                PrintStory();
+                PrintStory(characters[currentCharName].TextColor);
             }
             CurrentStoryState = StoryState.Crafting;
         }
@@ -165,9 +177,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void PrintStory()
+    private void PrintStory(Color textColor)
     {
-        StartCoroutine(PrintText());   
+        StartCoroutine(PrintText(textColor));   
     }
     
     //Update while the player is reading
@@ -210,12 +222,13 @@ public class GameManager : MonoBehaviour
     }
     
     //Coroutine to print text letter-by-letter
-    private IEnumerator PrintText()
+    private IEnumerator PrintText(Color textColor)
     {
         for (int i = 0; i < currentText.Length; i++)
         {
             string subStr = currentText.Substring(0, i);
             dialogue.text = subStr;
+            dialogue.color = textColor;
             yield return new WaitForSeconds(TextSpeed);
         }
     }
@@ -227,11 +240,11 @@ public class GameManager : MonoBehaviour
         Tween moveCharTween = currentCharSprite.transform.DOMove(SpriteExitPos[Random.Range(0, 2)].position, tweenTime);        
         yield return moveCharTween.WaitForCompletion();
         //Make the new character come up;
-        currentCharSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/" + currentCharName);
+        currentCharSprite.GetComponent<SpriteRenderer>().sprite = characters[currentCharName].Sprite;
         currentCharSprite.transform.position = SpriteExitPos[Random.Range(0, 2)].position;
         moveCharTween = currentCharSprite.transform.DOMove(SpriteStartingPos.position, tweenTime);
         yield return moveCharTween.WaitForCompletion();
-        PrintStory();
+        PrintStory(characters[currentCharName].TextColor);
     }
 
     private IEnumerator StartFade(bool inTrueOutFalse)
@@ -285,4 +298,13 @@ public enum StoryState
     Crafting,
     DayEnd,
     ReadingRecipe
+}
+
+[Serializable]
+public struct Character
+{
+    public string Name;
+    public Sprite Sprite;
+    public Color TextColor;
+    public AudioClip VoiceSound;
 }
