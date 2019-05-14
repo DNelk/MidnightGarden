@@ -101,6 +101,7 @@
             </e>
           </e>
         </e>
+        <e p="Potion.cs" t="Include" />
         <e p="RecipeBook.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="DataParser.cs" t="Include" />
