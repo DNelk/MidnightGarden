@@ -125,6 +125,7 @@ public class RecipeContainer : MonoBehaviour
 
             if (!recipeFound)
             {
+                AudioManager.Instance.PlayClip("gurgle");
                 EmptyContainer();
                 //Didn't make anytging
             }
