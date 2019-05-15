@@ -3791,7 +3791,7 @@ PrefabInstance:
     - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
         type: 3}
       propertyPath: SpritesWithKeys.Array.data[12].Key
-      value: slick oil solution
+      value: oil solution
       objectReference: {fileID: 0}
     - target: {fileID: 4404426388494909908, guid: 0eefb008a533e4f8e820bb787aed857a,
         type: 3}
@@ -4005,7 +4005,7 @@ PrefabInstance:
     - target: {fileID: 6191180415034915619, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
       propertyPath: _ingredientToSpawn
-      value: slick oil solution
+      value: oil solution
       objectReference: {fileID: 0}
     - target: {fileID: 6191180415034915619, guid: 777f8f33cb38f48af8475080f776ba50,
         type: 3}
