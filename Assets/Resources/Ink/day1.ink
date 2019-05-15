@@ -5,11 +5,11 @@ VAR whileCraftingText = ""
 
 ==Encounter_One==
 ~desiredRecipe = "Gill Serum"
-~name = "TestName1"
+~name = "Wayfarer"
 hi i'm an npc
 ~name = "player"
 hey i'm the player
-~name = "TestName1"
+~name = "Wayfarer"
 this is a test game...
 <>yes it is
 i want gill serum
@@ -24,7 +24,7 @@ i want gill serum
 
 ==Encounter_Two==
 ~desiredRecipe = "Shake Light"
-~name = "TestName2"
+~name = "Oma"
 ~whileCraftingText = "Nice Lookin Potions"
 here's the second encounter
 now i want a shake light

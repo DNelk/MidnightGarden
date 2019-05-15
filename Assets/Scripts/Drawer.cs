@@ -10,6 +10,8 @@ public class Drawer : MonoBehaviour
     private Text _tooltipText;
     private GameObject _tooltipBox;
 
+    public bool IsBottle = false;
+    
     private void Start()
     {
         _tooltipBox = GameObject.FindWithTag("Tooltip");
@@ -20,6 +22,14 @@ public class Drawer : MonoBehaviour
     {
         if(GameManager.Instance.CurrentStoryState != StoryState.Crafting)
             return;
+        if (IsBottle)
+        {
+            AudioManager.Instance.PlayClip("clink");
+        }
+        else
+        {
+            AudioManager.Instance.PlayClip("openDrawer");
+        }
         GameObject newIngredient = Instantiate(Resources.Load<GameObject>("Prefabs/Ingredient"));
         newIngredient.GetComponent<Ingredient>().IngredientType = _ingredientToSpawn;
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(transform.position);

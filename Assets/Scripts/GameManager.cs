@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         Recipe[] recipes = jsonParser.LoadRecipes("recipes.json");
         container.Recipes = recipes.OfType<Recipe>().ToList();
         recipeBook.Recipes = recipes;
-        
+
         characters = new Dictionary<string, Character>();
         foreach (Character character in CharacterData)
         {
@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void RecipeCreated(string recipeName)
+    public void RecipeServed(string recipeName, GameObject potion)
     {
         if(CurrentStoryState != StoryState.Crafting)
             return;
@@ -217,7 +217,8 @@ public class GameManager : MonoBehaviour
         }
         
         storyParser.MakeChoice(choiceIndex);
-        container.EmptyContainer();
+
+        Destroy(potion);
         CurrentStoryState = StoryState.Printing;
     }
     
@@ -229,8 +230,17 @@ public class GameManager : MonoBehaviour
             string subStr = currentText.Substring(0, i);
             dialogue.text = subStr;
             dialogue.color = textColor;
+            if (currentCharName != "player")
+                AudioManager.Instance.PlayClip("blip", characters[currentCharName].VoicePitch, characters[currentCharName].VoiceVolume);
+            else
+                AudioManager.Instance.PlayClip("blip", 0.7f);
             yield return new WaitForSeconds(TextSpeed);
         }
+
+        if (!storyParser.HasChoice()){
+            yield return new WaitForSeconds(3);  
+            CurrentStoryState = StoryState.Printing;
+        } 
     }
 
     private IEnumerator LoadCharacter()
@@ -287,6 +297,7 @@ public class GameManager : MonoBehaviour
         }
         
         IngredientsOnBoard.Clear();
+        AudioManager.Instance.PlayClip("sweep");
     }
 }
 
@@ -306,5 +317,6 @@ public struct Character
     public string Name;
     public Sprite Sprite;
     public Color TextColor;
-    public AudioClip VoiceSound;
+    public float VoicePitch;
+    public float VoiceVolume;
 }

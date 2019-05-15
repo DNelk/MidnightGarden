@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using System.Linq;
 
@@ -8,17 +9,19 @@ using System.Linq;
 public class Recipe : System.Object
 {
     public string Name;
-    public List<string> Requiredingredients;
+    public List<string> RequiredIngredients;
+    public string Flavor;
     
-    public Recipe(string name, List<string> requiredIngredients)
+    public Recipe(string name, List<string> requiredIngredients, string flavor)
     {
         Name = name;
-        Requiredingredients = requiredIngredients;
+        RequiredIngredients = requiredIngredients;
+        Flavor = flavor;
     }
 
     public bool CompareIngredients(string[] compareTo)
     {
-        return Requiredingredients.OrderBy(s => s).SequenceEqual(compareTo.OrderBy(s => s), StringComparer.OrdinalIgnoreCase);
+        return RequiredIngredients.OrderBy(s => s).SequenceEqual(compareTo.OrderBy(s => s), StringComparer.OrdinalIgnoreCase);
     }
 }
 

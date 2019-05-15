@@ -10,6 +10,7 @@ TagManager:
   - CurrentChar
   - RecipeBook
   - Tooltip
+  - Potion
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class RecipeContainer : MonoBehaviour
 {
     private List<string> _contents;
-
+    private List<GameObject> _activePotions;
+    
     private Color _myColor;
     private List<Color> _colors;
     private SpriteRenderer _mySR;
@@ -22,6 +23,7 @@ public class RecipeContainer : MonoBehaviour
     void Start()
     {
         _contents = new List<string>();
+        _activePotions = new List<GameObject>();
         _mySR = transform.GetComponent<SpriteRenderer>();
         _myColor = Color.white;
         _mySR.color = _myColor;
@@ -36,8 +38,14 @@ public class RecipeContainer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             _contents.Clear();
+            foreach (GameObject potion in _activePotions)
+            {
+                Destroy(potion);
+            }
+            _activePotions.Clear();
             _colors.Clear();
             _mySR.color = Color.white;
+            AudioManager.Instance.PlayClip("sweep");
         }
     }
 
@@ -46,6 +54,7 @@ public class RecipeContainer : MonoBehaviour
         Ingredient currIngredient = other.gameObject.transform.GetComponent<Ingredient>();
         if (currIngredient != null)
         {
+            AudioManager.Instance.PlayClip("drop");
             AddIngredient(currIngredient);
             GameManager.Instance.IngredientsOnBoard.Remove(other.gameObject.GetInstanceID());
             GameObject.Destroy(other.gameObject);
@@ -86,7 +95,7 @@ public class RecipeContainer : MonoBehaviour
         {
             if (r.CompareIngredients(_contents.ToArray()))
             {
-                GameManager.Instance.RecipeCreated(r.Name);
+                //GameManager.Instance.RecipeCreated(r.Name);
                 return true;
             }
         }
@@ -108,17 +117,29 @@ public class RecipeContainer : MonoBehaviour
             {
                 if (r.CompareIngredients(_contents.ToArray()))
                 {
-                    GameManager.Instance.RecipeCreated(r.Name);
+                    StartCoroutine(SpawnPotion(r));
+                    EmptyContainer();
                     recipeFound = true;
                 }
             }
 
             if (!recipeFound)
             {
-                GameManager.Instance.RecipeCreated("nothing");
+                EmptyContainer();
+                //Didn't make anytging
             }
             
             PestleAnimator.SetTrigger("StartGrind");
+            AudioManager.Instance.PlayClip("grind");
         }
+    }
+
+    private IEnumerator SpawnPotion(Recipe r)
+    {
+        yield return new WaitForSeconds(1);
+        AudioManager.Instance.PlayClip("pour");
+        GameObject potion = Instantiate(Resources.Load<GameObject>("Prefabs/Potion"));
+        potion.transform.position = transform.position + Vector3.left * 3;
+        potion.GetComponent<Potion>().Recipe = r.Name;  
     }
 }
