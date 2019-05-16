@@ -167,7 +167,7 @@ MonoBehaviour:
   - Key: Wound Salve
     Sprite: {fileID: 21300000, guid: 0921084e161544cfc8010195e8ea294b, type: 3}
     Flavor: 
-  - Key: Rust Away Salve
+  - Key: Rust-Away Salve
     Sprite: {fileID: 21300000, guid: 2a5d7179a4b0146699c69bdd8e2f9a3d, type: 3}
     Flavor: 
   - Key: Explosive Tincture

@@ -20,7 +20,9 @@
             <e p="readme.txt" t="Include" />
           </e>
         </e>
+        <e p="EndScreen.cs" t="Include" />
         <e p="ForceResolution.cs" t="Include" />
+        <e p="PlayIntro.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="Ink" t="Include">
             <e p="Editor" t="Include">

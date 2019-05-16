@@ -51,7 +51,7 @@
     },
     {
         "Name": "Rust-Away Salve",
-        "RequiredIngredients": ["Lemon Juice", "Slick Oil Solution", "Healing Water"],
+        "RequiredIngredients": ["Lemon Juice", "Oil Solution", "Healing Water"],
         "Flavor": "An ointment that turns back the clock on any metal surface."
     }
 ]}

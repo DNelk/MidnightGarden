@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public StoryState CurrentStoryState;
     [SerializeField] private int chapter;
+    private bool textDone = false;
     
     //Game Vars
     [Header("Character Information")]
@@ -68,7 +70,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);    
             
         //Sets this to not be destroyed when reloading scene
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         
         Init();
     }
@@ -146,16 +148,19 @@ public class GameManager : MonoBehaviour
 
             if(currentCharName == "player" || currentCharName == "")
             {
+                textDone = false;
                 PrintStory(Color.yellow);
             }
             else if(currentCharName != lastCharName && lastCharName != "player")
             {
+                textDone = false;
                 //load new char sprite
                 StartCoroutine(LoadCharacter());
                 currentDesiredRecipe = storyParser.GetVar<string>("desiredRecipe");   
             }
             else
             {
+                textDone = false;
                 PrintStory(characters[currentCharName].TextColor);
             }
             
@@ -166,7 +171,10 @@ public class GameManager : MonoBehaviour
             if (storyParser.GetVar<string>("whileCraftingText") != "")
             {
                 currentText = storyParser.GetVar<string>("whileCraftingText");
-                PrintStory(characters[currentCharName].TextColor);
+                if(currentCharName == "player")
+                    PrintStory(Color.yellow);
+                else
+                    PrintStory(characters[currentCharName].TextColor);
             }
             CurrentStoryState = StoryState.Crafting;
         }
@@ -185,8 +193,7 @@ public class GameManager : MonoBehaviour
     //Update while the player is reading
     private void ReadingStoryUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
+        if (textDone && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))){
             CurrentStoryState = StoryState.Printing;
         }
     }
@@ -194,11 +201,11 @@ public class GameManager : MonoBehaviour
     //Update when the player is crafting the recipe
     private void CraftingUpdate()
     {
-       // Debug.Log(CurrentDesiredRecipe);
+       /*// Debug.Log(CurrentDesiredRecipe);
         if(Input.GetKeyDown(KeyCode.Return))
         {
             bool recipeCompleted = container.CheckRecipeCompleted();
-        }
+        }*/
     }
 
     public void RecipeServed(string recipeName, GameObject potion)
@@ -237,24 +244,24 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(TextSpeed);
         }
 
-        if (!storyParser.HasChoice()){
-            yield return new WaitForSeconds(3);  
-            CurrentStoryState = StoryState.Printing;
-        } 
+        textDone = true;
     }
 
-    private IEnumerator LoadCharacter()
+    private IEnumerator LoadCharacter(bool noCharacter = false)
     {
         float tweenTime = 1.0f;
         //Make the old character go away;
         Tween moveCharTween = currentCharSprite.transform.DOMove(SpriteExitPos[Random.Range(0, 2)].position, tweenTime);        
         yield return moveCharTween.WaitForCompletion();
-        //Make the new character come up;
-        currentCharSprite.GetComponent<SpriteRenderer>().sprite = characters[currentCharName].Sprite;
-        currentCharSprite.transform.position = SpriteExitPos[Random.Range(0, 2)].position;
-        moveCharTween = currentCharSprite.transform.DOMove(SpriteStartingPos.position, tweenTime);
-        yield return moveCharTween.WaitForCompletion();
-        PrintStory(characters[currentCharName].TextColor);
+        if (!noCharacter)
+        {
+            //Make the new character come up;
+            currentCharSprite.GetComponent<SpriteRenderer>().sprite = characters[currentCharName].Sprite;
+            currentCharSprite.transform.position = SpriteExitPos[Random.Range(0, 2)].position;
+            moveCharTween = currentCharSprite.transform.DOMove(SpriteStartingPos.position, tweenTime);
+            yield return moveCharTween.WaitForCompletion();
+            PrintStory(characters[currentCharName].TextColor);
+        }
     }
 
     private IEnumerator StartFade(bool inTrueOutFalse)
@@ -264,8 +271,24 @@ public class GameManager : MonoBehaviour
         opacity = inTrueOutFalse ? 0.0f : 1.0f;
         fadeTween = fadeOutImg.DOFade(opacity, 1.0f);
         yield return fadeTween.WaitForCompletion();
-        fadeAnimating = false;
-        CurrentStoryState = inTrueOutFalse ? StoryState.Printing : StoryState.DayStart;
+        if (chapter > 4)
+        {
+            SceneManager.LoadScene("End");
+        }
+        else
+        {
+            if (inTrueOutFalse)
+            {
+                fadeAnimating = false;
+                CurrentStoryState = StoryState.Printing;
+            }
+            else
+            {
+                yield return new WaitForSeconds(5);
+                CurrentStoryState = StoryState.DayStart;
+                fadeAnimating = false;
+            }
+        }
     }
 
     private void DayStart()
@@ -283,9 +306,13 @@ public class GameManager : MonoBehaviour
     {
         if (!fadeAnimating)
         {
+            StartCoroutine(LoadCharacter(true));
             fadeAnimating = true;
-            StartCoroutine(StartFade(false));
             chapter++;
+            dialogue.text = "";
+            currentCharName = "";
+            StartCoroutine(StartFade(false));
+            
         }
     }
 
