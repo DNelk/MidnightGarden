@@ -251,14 +251,14 @@ public class GameManager : MonoBehaviour
     {
         float tweenTime = 1.0f;
         //Make the old character go away;
-        Tween moveCharTween = currentCharSprite.transform.DOMove(SpriteExitPos[Random.Range(0, 2)].position, tweenTime);        
+        Tween moveCharTween = currentCharSprite.transform.DOMove(SpriteExitPos[Random.Range(0, 2)].position, tweenTime).SetEase(Ease.InOutSine);        
         yield return moveCharTween.WaitForCompletion();
         if (!noCharacter)
         {
             //Make the new character come up;
             currentCharSprite.GetComponent<SpriteRenderer>().sprite = characters[currentCharName].Sprite;
             currentCharSprite.transform.position = SpriteExitPos[Random.Range(0, 2)].position;
-            moveCharTween = currentCharSprite.transform.DOMove(SpriteStartingPos.position, tweenTime);
+            moveCharTween = currentCharSprite.transform.DOMove(SpriteStartingPos.position, tweenTime).SetEase(Ease.InOutSine);
             yield return moveCharTween.WaitForCompletion();
             PrintStory(characters[currentCharName].TextColor);
         }

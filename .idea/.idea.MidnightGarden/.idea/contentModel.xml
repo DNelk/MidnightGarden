@@ -21,6 +21,7 @@
           </e>
         </e>
         <e p="EndScreen.cs" t="Include" />
+        <e p="ExitRecipeCards.cs" t="Include" />
         <e p="ForceResolution.cs" t="Include" />
         <e p="PlayIntro.cs" t="Include" />
         <e p="Plugins" t="Include">

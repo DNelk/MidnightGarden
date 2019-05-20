@@ -50,7 +50,7 @@ public class RecipeBook : MonoBehaviour
             StartCoroutine(ToggleUI());
     }
 
-    private IEnumerator ToggleUI()
+    public IEnumerator ToggleUI()
     {
         AudioManager.Instance.PlayClip("paper");
         if (_UIActive)

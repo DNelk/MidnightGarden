@@ -48,7 +48,7 @@ How can I h--
 Where is the old woman?! Sir TERR-33 Arium, Sanctified Defender of These Realms requires her aid once again! 
 I can't be seen going into battle with this much oxidation on my chassis.
 ~name = "player"
-Ah, Gran...she isn't with us...But I'm taking over for her starting today. 
+Ah, Gran...she isn't with us...But I'm taking over for her now. 
 ~name = "Sir Arium"
 Impossible! The old witch never misses a day! 
 If her shop was open when the Battle of Newich came through THIS FIELD, surely she must be willing to take an appointment.
