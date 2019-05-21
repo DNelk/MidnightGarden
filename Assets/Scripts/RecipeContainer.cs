@@ -19,6 +19,11 @@ public class RecipeContainer : MonoBehaviour
     private Text _uiText;
 
     public Animator PestleAnimator;
+    
+    private Text _tooltipText;
+    private GameObject _tooltipBox;
+
+    public Button EmptyButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +35,12 @@ public class RecipeContainer : MonoBehaviour
         _colors = new List<Color>();
 
         _uiText = GameObject.FindWithTag("UIText").GetComponent<Text>();
+        
+        _tooltipBox = GameObject.FindWithTag("Tooltip");
+        _tooltipText = _tooltipBox.transform.GetChild(0).GetComponent<Text>();
+
+        EmptyButton.interactable = false; 
+        EmptyButton.onClick.AddListener(() => EmptyWithEffect());
     }
 
     // Update is called once per frame
@@ -37,15 +48,14 @@ public class RecipeContainer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            _contents.Clear();
-            foreach (GameObject potion in _activePotions)
-            {
-                Destroy(potion);
-            }
-            _activePotions.Clear();
-            _colors.Clear();
-            _mySR.color = Color.white;
-            AudioManager.Instance.PlayClip("sweep");
+            EmptyWithEffect();
+        }
+
+        if (GameManager.Instance.CurrentStoryState == StoryState.Crafting)
+            EmptyButton.interactable = true;
+        else
+        {
+            EmptyButton.interactable = false;
         }
     }
 
@@ -108,6 +118,19 @@ public class RecipeContainer : MonoBehaviour
         _contents.Clear();
     }
 
+    public void EmptyWithEffect()
+    {
+        _contents.Clear();
+        foreach (GameObject potion in _activePotions)
+        {
+            Destroy(potion);
+        }
+        _activePotions.Clear();
+        _colors.Clear();
+        _mySR.color = Color.white;
+        AudioManager.Instance.PlayClip("sweep");
+    }
+
     private void OnMouseDown()
     {
         if(GameManager.Instance.CurrentStoryState == StoryState.Crafting)
@@ -125,7 +148,11 @@ public class RecipeContainer : MonoBehaviour
 
             if (!recipeFound)
             {
-                AudioManager.Instance.PlayClip("gurgle");
+                if (_contents.Count != 0)
+                {
+                    AudioManager.Instance.PlayClip("gurgle");
+                    GameManager.Instance.badParticle.Emit(100);
+                }
                 EmptyContainer();
                 //Didn't make anytging
             }
@@ -142,5 +169,36 @@ public class RecipeContainer : MonoBehaviour
         GameObject potion = Instantiate(Resources.Load<GameObject>("Prefabs/Potion"));
         potion.transform.position = transform.position + Vector3.left * 3;
         potion.GetComponent<Potion>().Recipe = r.Name;  
+    }
+    
+    private void OnMouseOver()
+    {
+        if(GameManager.Instance.CurrentStoryState != StoryState.Crafting || _contents.Count == 0)
+            return;
+        //first you need the RectTransform component of your canvas
+        RectTransform canvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+ 
+        //then you calculate the position of the UI element
+        //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
+ 
+        Vector2 viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+        Vector2 worldObject_ScreenPosition = new Vector2(
+            ((viewportPosition.x * canvasRect.sizeDelta.x)-(canvasRect.sizeDelta.x*0.5f)),
+            ((viewportPosition.y * canvasRect.sizeDelta.y)-(canvasRect.sizeDelta.y*0.5f)));
+ 
+        //now you can set the position of the ui element
+        _tooltipBox.GetComponent<RectTransform>().anchoredPosition = worldObject_ScreenPosition + (Vector2.left * 150);
+        _tooltipText.text = "Contents: ";
+        foreach (string i in _contents)
+        {
+            _tooltipText.text += Environment.NewLine;
+            _tooltipText.text += i;
+        }
+
+    }
+
+    private void OnMouseExit()
+    {
+        _tooltipBox.GetComponent<RectTransform>().anchoredPosition = new Vector2(37, 293);
     }
 }

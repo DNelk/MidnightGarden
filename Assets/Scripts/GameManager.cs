@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private Image dialogueBox;
     private Text dialogue;
     private string currentText;
+    public ParticleSystem badParticle;
+    public Button ClearButton;
     
     [Header("Text Speed")]
     public float TextSpeed = 0.1f;
@@ -106,6 +108,8 @@ public class GameManager : MonoBehaviour
         {
             characters.Add(character.Name, character);
         }
+        
+        ClearButton.onClick.AddListener(() => ClearUnusedIngredients());
     }
     
     // Update is called once per frame
@@ -130,6 +134,13 @@ public class GameManager : MonoBehaviour
             case StoryState.DayEnd:
                 DayEnd();
                 break;
+        }
+
+        if (CurrentStoryState == StoryState.Crafting)
+            ClearButton.interactable = true;
+        else
+        {
+            ClearButton.interactable = false;
         }
     }
     
@@ -262,6 +273,10 @@ public class GameManager : MonoBehaviour
             yield return moveCharTween.WaitForCompletion();
             PrintStory(characters[currentCharName].TextColor);
         }
+        else
+        {
+            currentCharSprite.GetComponent<SpriteRenderer>().sprite = null;
+        }
     }
 
     private IEnumerator StartFade(bool inTrueOutFalse)
@@ -284,7 +299,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(5);
+                yield return new WaitForSeconds(2);
                 CurrentStoryState = StoryState.DayStart;
                 fadeAnimating = false;
             }
