@@ -1,0 +1,57 @@
+{ "Recipes" : [
+    {
+        "Name": "Gill Serum",
+        "RequiredIngredients": ["Plant Oil", "Iridescent Scale Powder"],
+        "Flavor": "A shimmering, iridescent liquid that gives temporary gills to whomever rubs it on their skin."
+    },
+    {
+        "Name": "Warm Healing Tonic",
+        "RequiredIngredients": ["Wraith Pepper", "Rock Salt", "Healing Water", "Savory Herb Mix"],
+        "Flavor": "A spicy herbal drink said to warm hearts and bolster immunity."
+    },
+    {
+        "Name": "Shake Light",
+        "RequiredIngredients": ["Plant Oil", "Will o Wisp"],
+        "Flavor": "A tiny vial that glows brightly when the liquid inside is agitated."
+    },
+    {
+        "Name": "Sweet Healing Tonic",
+        "RequiredIngredients": ["Healing Water", "Lemon Juice", "Flower Honey", "Sweet Herb Mix"],
+        "Flavor": "A fruity, herb-infused drink with potent healing properties."
+    },
+    {
+        "Name": "Power Lemonade",
+        "RequiredIngredients": ["Healing Water", "Sweet Herb Mix", "Strawngberries", "Lemon Juice", "Flower Honey"],
+        "Flavor": "A sour effervescent cocktail that brightens up any day!"
+    },
+    {
+        "Name": "Explosive Tincture",
+        "RequiredIngredients": ["Plant Oil", "Wraith Pepper", "Will o Wisp"],
+        "Flavor": "The will-o-wisp and wraith pepper in this potion react upon being smashed against a surface to create a sizable blast."
+    },
+    {
+        "Name": "Wound Salve",
+        "RequiredIngredients": ["Plant Oil", "Healing Water", "Flower Honey"],
+        "Flavor": "A slimy green poultice that heals most wounds it's applied over. "
+    },
+    {
+        "Name": "Spiced Siren Cider",
+        "RequiredIngredients": ["Healing Water", "Flower Honey", "Iridescent Scale Powder", "Sweet Herb Mix", "Savory Herb Mix"],
+        "Flavor": "Warming and flavorful, this cider is the perfect thing for a cold night... or a cold. The gill serum inside not only adds a colorful shine, but has decongestion effects."
+    },
+    {
+        "Name": "Dragons Broth",
+        "RequiredIngredients": ["Healing Water", "Wraith Pepper", "Sparkroot", "Rock Salt"],
+        "Flavor": "A hearty stew of spices and root vegetables that can fill even the hungriest stomachs."
+    },
+    {
+        "Name": "Robot Ramen",
+        "RequiredIngredients": ["Oil Solution", "Savory Herb Mix", "Tangled Wires"],
+        "Flavor": "Copper wires cooked al dente, soaking in a murky engine oil broth. I like the swirly things on top."
+    },
+    {
+        "Name": "Rust-Away Salve",
+        "RequiredIngredients": ["Lemon Juice", "Oil Solution", "Healing Water"],
+        "Flavor": "An ointment that turns back the clock on any metal surface."
+    }
+]}
